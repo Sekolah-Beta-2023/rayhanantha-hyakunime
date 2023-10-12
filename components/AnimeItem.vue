@@ -12,8 +12,11 @@
           @error="imageError = !imageError"
         />
       </figure>
-      <figure v-else>
-        <h2>No Image</h2>
+      <figure
+        v-else
+        class="object-cover w-full h-[30vh] md:h-[35vh] lg:h-[50vh] animate-no_image"
+      >
+        <h2 class="text-xl text-slate-800">No Image</h2>
       </figure>
       <div class="@card-body">
         <h1 class="@card-title lg:text-xl">
@@ -60,8 +63,6 @@ export default {
     }
   },
   created() {
-    // const token = this.$cookies.get('auth.token')
-    // const supabaseClient = supabase({ token })
     const token = this.$cookies.get('auth.token')
     this.supabaseClient = supabase({ token })
   },
@@ -135,7 +136,8 @@ export default {
         }
         console.log('delete data success')
         this.isBooked = false
-        this.$emit('refreshAnime', this.isBooked)
+        // this.$emit('refreshAnime', this.isBooked)
+        this.$emit('refreshAnime')
         return
       }
 

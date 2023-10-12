@@ -28,7 +28,7 @@
 
         <div class="w-full p-3 flex flex-col gap-y-10">
           <h1 id="user-nickname">{{ nickname }}</h1>
-          <nuxt-link to="/anime/page/1" @click.native="$emit('resetSearch')">
+          <nuxt-link to="/anime/page/" @click.native="resetAnimeSearch">
             Anime
           </nuxt-link>
           <nuxt-link to="/user">User</nuxt-link>
@@ -58,6 +58,12 @@ export default {
     showMenu: {
       type: Boolean,
       default: false,
+    },
+  },
+
+  methods: {
+    resetAnimeSearch() {
+      this.$store.dispatch('animeSearched', '')
     },
   },
 }

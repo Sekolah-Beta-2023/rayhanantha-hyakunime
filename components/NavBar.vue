@@ -6,13 +6,11 @@
       :nickname="userNickname"
       @menuStateOn="isMobileMenu = true"
       @menuStateOff="isMobileMenu = false"
-      @resetSearch="resetAnimeSearch"
       @logOut="logOut"
     />
     <desktop-nav
       v-else-if="!isMobile"
       :nickname="userNickname"
-      @resetSearch="resetAnimeSearch"
       @logOut="logOut"
     />
   </div>
@@ -57,10 +55,6 @@ export default {
       this.$cookies.remove('auth.token')
       this.$cookies.remove('user.id')
       this.$router.push('/login')
-    },
-
-    resetAnimeSearch() {
-      this.$store.dispatch('animeSearched', '')
     },
   },
 }

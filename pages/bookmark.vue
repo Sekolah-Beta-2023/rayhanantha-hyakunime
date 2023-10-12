@@ -35,7 +35,7 @@
       </div>
       <div
         v-else
-        class="h-[100vh] w-full flex flex-col justify-center items-center text-center"
+        class="h-[100vh] w-full flex flex-col justify-center items-center"
       >
         <h2 class="text-2xl">No Anime Booked</h2>
         <p>
@@ -70,6 +70,7 @@ export default {
       searchAnime: '',
     }
   },
+
   head() {
     return {
       title: 'User Bookmark',
@@ -85,16 +86,23 @@ export default {
     screen < 768 ? (this.isMobile = true) : (this.isMobile = false)
     const searchedAnime = this.$store.state.animeSearch
     this.searchAnime = searchedAnime
+    if (searchedAnime !== '') {
+      this.searchAnime = ''
+    }
   },
 
   methods: {
-    async refreshAnime(data) {
-      this.isBooked = await data
-      if (!this.isBooked) {
-        setTimeout(() => {
-          this.getAnimeFromUser()
-        }, 1000)
-      }
+    // async refreshAnime(data) {
+    refreshAnime(data) {
+      // this.isBooked = await data
+      // if (!this.isBooked) {
+      //   setTimeout(() => {
+      //     this.getAnimeFromUser()
+      //   }, 1000)
+      // }
+      setTimeout(() => {
+        this.getAnimeFromUser()
+      }, 500)
     },
 
     resetAnimeSearch() {

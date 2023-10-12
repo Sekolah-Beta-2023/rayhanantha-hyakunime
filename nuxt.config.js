@@ -132,8 +132,13 @@ export default {
     extendRoutes(routes, resolve) {
       routes.push(
         {
-          name: 'IndexAnimePage',
-          path: '/anime/page/:page(\\d+)',
+          name: 'anime-base',
+          path: '/anime/page/',
+          component: resolve(__dirname, 'pages/index.vue')
+        },
+        {
+          name: 'anime-pages',
+          path: '/anime/page/:page(\\d+)?',
           component: resolve(__dirname, 'pages/index.vue')
         },
         {

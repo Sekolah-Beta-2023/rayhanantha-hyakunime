@@ -4,6 +4,7 @@ export default {
         extend: {
             animation: {
                 error_shake: 'error-shake 300ms linear forwards',
+                no_image: 'skeleton-loading 1s linear infinite alternate'
             },
 
             fontFamily: {

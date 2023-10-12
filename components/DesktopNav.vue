@@ -4,9 +4,9 @@
       class="w-full p-3 flex border-b-2 border-blue-400 gap-x-10 justify-center items-center"
     >
       <h1 id="user-nickname">{{ nickname }}</h1>
-      <nuxt-link to="/anime/page/1" @click="$emit('resetSearch')">
-        Anime
-      </nuxt-link>
+      <nuxt-link to="/anime/page/" @click.native="resetAnimeSearch"
+        >Anime</nuxt-link
+      >
       <nuxt-link to="/user">User</nuxt-link>
       <nuxt-link to="/bookmark" @click="$emit('resetSearch')"
         >Bookmark</nuxt-link
@@ -28,6 +28,11 @@ export default {
     nickname: {
       type: String,
       default: 'User',
+    },
+  },
+  methods: {
+    resetAnimeSearch() {
+      this.$store.dispatch('animeSearched', '')
     },
   },
 }
