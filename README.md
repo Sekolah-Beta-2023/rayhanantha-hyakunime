@@ -50,7 +50,7 @@ ini saya lagi coba buat optimasi biar user nyaman ngaksesnya.
 Waduh, kalo ini sih, rahasia dulu gak sih wkwkwk
 
 ## Kalo saya mau ikut kolaborasi pengembangan, ato mungkin sekedar kenalan sama akang, lewat mana kang?
-Kalian bisa dm saya di github ato mungkin langsung aja cek ke github saya, disitu sosmed saya yang reachable ada semua.
+Kalian bisa dm saya di github ato mungkin langsung aja cek ke github saya, disitu sosmed saya yang reachable ada semua. <br>
 <a href='https://github.com/rayzio-jax' target="_blank"><img alt='github' src='https://img.shields.io/badge/rayziojax-100000?style=for-the-badge&logo=github&logoColor=FFFFFF&labelColor=000000&color=F7F7F7'/></a>
 
 ### Oke, cukup sekian aja yang mau saya sampaikan, sekali lagi buat Pak Samsul dan Kang Rijal, terima kasih banyak atas ilmunya.
