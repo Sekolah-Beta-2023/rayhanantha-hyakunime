@@ -79,13 +79,13 @@ npm run dev
 ```
 
 Disitu butuh file `.env`, diantaranya:
-* NODE_ENV= YOUR_ENV_STATE --> default development
-* BASE_URL= YOUR_LOCAL_URL --> (optional) default localhost:3000
-* API_URL= YOUR_API_URL --> default https://anime-db.p.rapidapi.com/
-* API_HOST= YOUR_API_HOST --> default anime-db.p.rapidapi.com
-* API_KEY= YOUR_API_KEY --> default 'My AnimeDB key from RapidAPI'
-* SUPABASE_URL= YOUR_SUPABASE_PROJECT_URL --> default 'My Supabase Project URL'
-* SUPABASE_CLIENT_KEY= YOUR_SUPABASE_PUBLIC_KEY --> default 'My Supabase Public Key'
+* `NODE_ENV= YOUR_ENV_STATE` --> default development
+* `BASE_URL= YOUR_LOCAL_URL` --> (optional) default localhost:3000
+* `API_URL= YOUR_API_URL` --> default https://anime-db.p.rapidapi.com/
+* `API_HOST= YOUR_API_HOST` --> default anime-db.p.rapidapi.com
+* `API_KEY= YOUR_API_KEY` --> default 'My AnimeDB key from RapidAPI'
+* `SUPABASE_URL= YOUR_SUPABASE_PROJECT_URL` --> default 'My Supabase Project URL'
+* `SUPABASE_CLIENT_KEY= YOUR_SUPABASE_PUBLIC_KEY` --> default 'My Supabase Public Key'
 
 Mungkin mau coba sendiri di PC masing-masing pake akun masing-masing, tapi kalo pinjem key dari saya juga boleh
 tinggal dm saya aja, asal jangan di spam request, nanti saya bisa di ban dari API-nya :)
