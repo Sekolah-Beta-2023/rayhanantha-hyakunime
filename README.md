@@ -87,6 +87,8 @@ Disitu butuh file `.env`, diantaranya:
 * `SUPABASE_URL= YOUR_SUPABASE_PROJECT_URL` --> default 'My Supabase Project URL'
 * `SUPABASE_CLIENT_KEY= YOUR_SUPABASE_PUBLIC_KEY` --> default 'My Supabase Public Key'
 
+API Source: https://rapidapi.com/brian.rofiq/api/anime-db
+
 Mungkin mau coba sendiri di PC masing-masing pake akun masing-masing, tapi kalo pinjem key dari saya juga boleh
 tinggal dm saya aja, asal jangan di spam request, nanti saya bisa di ban dari API-nya :)
 
