@@ -17,7 +17,7 @@ Terima kasih juga kepada asisten mentor pada **#Grup 4** yaitu kang Muhammad Rij
 dalam proses development project ini, terima kasih sudah meluangkan waktunya selama beberapa hari waktu itu untuk bantuin saya kang.
 Makasih banget kang, waktu itu buntu banget tapi kang Rijal penyelamat jadi bisa kekejar sampai deadline wkwkwk.
 
-## Apa yang mendasari saya dalam bikin web ini?
+## Apa yang mendasari dalam bikin web ini?
 Sebenernya, waktu itu saya buntu mau nentuin judul apa buat tugas akhir karena saya sekarang berada di semester 7 (sambil skripsi) jadi saya juga bingung
 nentuin skripsi mau bikin apa terus tugas akhir LMS juga bingung. Alhasil pada hari terakhir submit judul tugas akhir, saya mentok kepikiran bikin ini saja.
 (faktor lainnya karena saya belum pernah masuk ke ranah Back-End secara individu, jadi saya bingung waktu ketika ada ketentuan CRUD di dalam project).
@@ -41,7 +41,7 @@ Mungkin itu aja fitur utama selain registrasi user.
 saya update, saya perbarui, saya perbagus, saya tambahkan fitur-fitur lainnya. Jika ada yang berkenan ikut pengembangan web ini silahkan dm aja, nanti kita diskusi bareng.
 
 ## Adakah link web-nya yang udah di deploy bang?
-Link-nya nanti mungkin kesini https://hyakunime.vercel.app , sementara saya shutdown soalnya waktu saya tes
+Link-nya nanti mungkin kesini [hyakunime](#deployed-website-link), sementara saya shutdown soalnya waktu saya tes
 masuk ke web-nya, load web-nya tu lambat banget + makan bandwith gede, dan ada beberapa fitur belum teroptimasi. <br>
 Sering cek aja apa web-nya uda ke deploy ulang gitu, gak lama kok ini bakal saya deploy ulang,
 ini saya lagi coba buat optimasi biar user nyaman ngaksesnya.
@@ -52,6 +52,46 @@ Waduh, kalo ini sih, rahasia dulu gak sih wkwkwk
 ## Kalo saya mau ikut kolaborasi pengembangan, ato mungkin sekedar kenalan sama akang, lewat mana kang?
 Kalian bisa dm saya di github ato mungkin langsung aja cek ke github saya, disitu sosmed saya yang reachable ada semua. <br>
 <a href='https://github.com/rayzio-jax' target="_blank"><img alt='github' src='https://img.shields.io/badge/rayziojax-100000?style=for-the-badge&logo=github&logoColor=FFFFFF&labelColor=000000&color=F7F7F7'/></a>
+
+## Bang, ini saya mau coba running di local, gimana caranya?
+1. Clone repo
+```bash
+git clone https://github.com/Sekolah-Beta-2023/rayhanantha_akbar-hyakunime.git
+```
+```bash
+cd rayhanantha_akbar-hyakunime
+```
+2. Install depedencies
+```bash
+yarn install
+```
+or
+```bash
+npm install
+```
+4. Run
+```bash
+yarn dev
+```
+or
+```bash
+npm run dev
+```
+
+Disitu butuh file `.env`, diantaranya:
+* NODE_ENV= YOUR_ENV_STATE --> default development
+* BASE_URL= YOUR_LOCAL_URL --> (optional) default localhost:3000
+* API_URL= YOUR_API_URL --> default https://anime-db.p.rapidapi.com/
+* API_HOST= YOUR_API_HOST --> default anime-db.p.rapidapi.com
+* API_KEY= YOUR_API_KEY --> default 'My AnimeDB key from RapidAPI'
+* SUPABASE_URL= YOUR_SUPABASE_PROJECT_URL --> default 'My Supabase Project URL'
+* SUPABASE_CLIENT_KEY= YOUR_SUPABASE_PUBLIC_KEY --> default 'My Supabase Public Key'
+
+Mungkin mau coba sendiri di PC masing-masing pake akun masing-masing, tapi kalo pinjem key dari saya juga boleh
+tinggal dm saya aja, asal jangan di spam request, nanti saya bisa di ban dari API-nya :)
+
+## Deployed website link
+https://hyakunime.vercel.app
 
 ### Oke, cukup sekian aja yang mau saya sampaikan, sekali lagi buat Pak Samsul dan Kang Rijal, terima kasih banyak atas ilmunya.
 ** moga lulus ke tahap magang, amin🙏
