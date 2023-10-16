@@ -24,16 +24,6 @@
           <ion-icon name="search"></ion-icon>
         </button>
       </form>
-
-      <!-- <div>
-        <input
-          data-toggle-theme="dark,light"
-          data-act-class="ACTIVECLASS"
-          type="checkbox"
-          class="@toggle"
-          checked
-        />
-      </div> -->
     </div>
     <!-- showing list of anime -->
     <anime-list
@@ -41,12 +31,13 @@
       :is-more-page="isMorePage"
       :current-page="currentPage"
       :is-fetching="isFetching"
+      :reach-max-page="reachMaxPage"
+      :reach-min-page="reachMinPage"
     />
   </main>
 </template>
 
 <script>
-import { themeChange } from 'theme-change'
 import AnimeList from '~/components/AnimeList.vue'
 export default {
   components: {
@@ -61,6 +52,8 @@ export default {
       isPageError: this.$store.state.isAnimePageError,
       searchAnime: '',
       currentPage: Number(this.$route.params.page) || 1,
+      reachMaxPage: false,
+      reachMinPage: false,
     }
   },
 
@@ -77,7 +70,6 @@ export default {
   },
 
   mounted() {
-    themeChange(false)
     const searchedAnime = this.$store.state.animeSearch
     this.searchAnime = searchedAnime
     this.fetchData()
@@ -113,8 +105,6 @@ export default {
           const totalData = res?.data?.meta?.totalData
           this.animeData = data
 
-          // console.log('Total data: ', totalData)
-
           if (page === 1) {
             this.$router.push('/anime/page/1')
           }
@@ -123,7 +113,15 @@ export default {
             this.$store.dispatch('animeExist', true)
             if (totalPage > 1) {
               this.isMorePage = true
+              if (currentPage === totalPage) {
+                this.reachMaxPage = true
+              }
+              if (currentPage === 1) {
+                this.reachMinPage = true
+              }
             } else {
+              this.reachMaxPage = true
+              this.reachMinPage = true
               this.isMorePage = false
             }
           } else {

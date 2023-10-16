@@ -13,7 +13,7 @@
               ? 'block animate-error_shake'
               : 'block' && isError
               ? 'animate-error_shake'
-              : '',
+              : 'hidden',
           ]"
         >
           {{ errorMessage }}
@@ -72,19 +72,46 @@
                 placeholder="New Email"
               />
             </div>
-            <div class="py-3">
+            <div class="py-5">
               <button
+                v-if="!verify.first"
                 type="button"
-                class="w-full @btn @btn-md @btn-warning dark:@btn-outline dark:focus:focus-within:bg-warning dark:focus:focus-within:text-slate-800"
-                @click="deleteUser"
+                class="w-full @btn @btn-md @btn-warning hover:bg-[#F5B500] hover:text-white focus:focus-within:bg-[#F5B500] focus:focus-within:text-white focus:focus-within:border-2 focus:focus-within:border-[#fff] dark:@btn-outline dark:focus:focus-within:bg-warning dark:focus:focus-within:text-slate-800"
+                @click="
+                  ;(verify.first = !verify.first),
+                    (verify.second = !verify.second)
+                "
               >
                 Delete User?
+              </button>
+              <button
+                v-if="verify.second"
+                type="button"
+                class="w-full @btn @btn-md @btn-warning hover:bg-[#F5B500] hover:text-white focus:focus-within:bg-[#F5B500] focus:focus-within:text-white focus:focus-within:border-2 focus:focus-within:border-[#fff] dark:@btn-outline dark:focus:focus-within:bg-warning dark:focus:focus-within:text-slate-800"
+                @click="
+                  timerCountdown(),
+                    (verify.second = !verify.second),
+                    (verify.third = !verify.third)
+                "
+              >
+                Are you sure?
+              </button>
+              <button
+                v-if="verify.third"
+                type="button"
+                class="w-full @btn @btn-md @btn-warning hover:bg-[#F5B500] hover:text-white focus:focus-within:bg-[#F5B500] focus:focus-within:text-white focus:focus-within:border-2 focus:focus-within:border-[#fff] dark:@btn-outline dark:focus:focus-within:bg-warning dark:focus:focus-within:text-slate-800 dark:disabled:border-slate-600 dark:disabled:text-slate-400"
+                :disabled="buttonDisabled"
+                @click="deleteUser"
+              >
+                {{
+                  buttonDisabled ? seconds : 'This will delete user immediately'
+                }}
               </button>
             </div>
             <div class="py-2 flex justify-around">
               <button
                 type="button"
-                class="text-white drop-shadow-lg @btn @btn-md @btn-error dark:@btn-outline dark:focus:focus-within:bg-error dark:focus:focus-within:text-slate-800"
+                class="text-white drop-shadow-lg @btn @btn-md @btn-error hover:bg-[#e66264] focus:focus-within:bg-[#e66264] focus:focus-within:border-2 focus:focus-within:border-[#fff] dark:@btn-outline dark:focus:focus-within:bg-error dark:focus:focus-within:text-slate-800"
                 @click="
                   resetUser()
                   isUpdating = !isUpdating
@@ -94,7 +121,7 @@
               </button>
               <button
                 type="submit"
-                class="text-white drop-shadow-lg @btn @btn-md @btn-success dark:@btn-outline dark:focus:focus-within:bg-success dark:focus:focus-within:text-slate-800"
+                class="text-white drop-shadow-lg @btn @btn-md @btn-success hover:bg-[#0ebf87] focus:focus-within:border-2 focus:focus-within:border-[#fff] focus:focus-within:bg-[#0ebf87] dark:@btn-outline dark:focus:focus-within:bg-success dark:focus:focus-within:text-slate-800"
               >
                 Update
               </button>
@@ -107,6 +134,7 @@
 </template>
 
 <script>
+import { supabase } from '~/api/supabase'
 export default {
   middleware: 'auth',
   data() {
@@ -114,12 +142,19 @@ export default {
       userNickname: this.$store.state.userNickname,
       currentNickname: 'User',
       userEmail: 'example@mail.com',
-      currentEmail: '',
       isUpdating: false,
       user: null,
       session: null,
       isError: false,
       errorMessage: 'Error occurred',
+      verify: {
+        first: false,
+        second: false,
+        third: false,
+      },
+      seconds: 5,
+      buttonDisabled: true,
+      interval: null,
     }
   },
 
@@ -141,18 +176,35 @@ export default {
     this.$store.dispatch('setUserNickname', userNickname)
 
     this.userNickname = userNickname
-    this.currentNickname = this.$store.state.userNickname
+    this.currentNickname = this.$store.state.userNickname || '友達'
     this.userEmail = userEmail
-    this.currentEmail = userEmail
   },
 
   methods: {
+    timerCountdown() {
+      if (this.interval === null) {
+        this.interval = setInterval(() => {
+          if (this.seconds === 0) {
+            clearInterval(this.interval)
+            this.buttonDisabled = false
+            return this.buttonDisabled
+          } else {
+            return this.seconds--
+          }
+        }, 1000)
+      }
+    },
+
     async resetUser() {
       const userNickname = await this.user?.user_metadata?.nickname
       const userEmail = await this.user?.email
 
+      this.isError = false
       this.userEmail = userEmail
       this.userNickname = userNickname
+      this.verify.first = false
+      this.verify.second = false
+      this.verify.third = false
     },
 
     async updateUser() {
@@ -171,26 +223,49 @@ export default {
         return (this.isError = true)
       }
 
+      if (this.userNickname.length > 6) {
+        console.error('Error to update user: nickname too long!')
+        this.errorMessage = 'Nickname too long bro.'
+        return (this.isError = true)
+      }
+
+      if (
+        this.userEmail === null ||
+        this.userEmail === undefined ||
+        this.userEmail === ''
+      ) {
+        console.error('Error to update user: email is empty!')
+        this.errorMessage = "Email can't be empty bro."
+        return (this.isError = true)
+      }
+
       const userNickname = user?.user_metadata?.nickname
+      const userEmail = user?.email
       console.log('Update success on user: ', userNickname)
+      console.log('Update success, new email: ', userEmail)
+      console.log('User input: ', this.userEmail)
       await this.$store.dispatch('setUserNickname', userNickname)
       this.userNickname = await userNickname
-      window.location.reload()
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
       return (this.isError = false)
     },
 
     async deleteUser() {
+      const authToken = this.$cookies.get('auth.token')
+      const supabaseClient = supabase({ token: authToken })
+
       // get user
       const user = await this.$supabase.auth.user()
 
       // sign out
-      // const { error: signOutError } = await this.$supabase.auth.signOut()
-
-      // if (signOutError) {
-      //   console.error('Error signing out user!', signOutError.message)
-      //   this.errorMessage = 'Sign Out Error!'
-      //   return (this.isError = true)
-      // }
+      const { error: signOutError } = await this.$supabase.auth.signOut()
+      if (signOutError) {
+        console.error('Error signing out user!', signOutError.message)
+        this.errorMessage = 'Sign Out Error!'
+        return (this.isError = true)
+      }
 
       if (user) {
         // delete user's data from other table
@@ -206,14 +281,8 @@ export default {
         }
         console.log("User's data deleted successfully")
 
-        const userId = user?.id
-        const { error: authDeleteError } = this.$supabase.auth.api.deleteUser(
-          userId,
-          {
-            headers: {
-              apiKey: process.env.SUPABASE_CLIENT_KEY,
-            },
-          }
+        const { error: authDeleteError } = await supabaseClient.rpc(
+          'delete_user'
         )
 
         if (authDeleteError) {
@@ -221,6 +290,7 @@ export default {
           this.errorMessage = 'Error deleting user!'
           return (this.isError = true)
         }
+        console.log('User deleted successfully')
 
         this.isError = false
         this.$cookies.remove('auth.token')
